@@ -3,34 +3,86 @@ layout: archive
 title: "Publications"
 permalink: /publications/
 author_profile: true
+header:
+overlay_color: ""
+overlay_image: ""
+image: ""
 ---
 
-<!-- {% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
-{% endif %} -->
+<div class="publications">
+  {%- comment -%}
+  Define your name variations for highlighting.
+  It’s best to define your primary name in _config.yml under site.author.name.
+  Here we assume the global name is "Chen, Sijia".
+  {%- endcomment -%}
+  {% assign myname = site.author.name | default: "Chen, Sijia" %}
+  {% assign myname_alternative = "Sijia Chen" %}
+  {% assign styled_name = '<span style="color: black; font-weight: bold;">Chen, Sijia</span>' %}
 
-{% include base_path %}
+  {%- comment -%}
+  Sort publications by date (newest first) and group them by publication year.
+  {%- endcomment -%}
+  {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp:"pub", "pub.date | date: '%Y'" %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
+  {% for group in pubs_by_year %}
+  <section class="year-group" style="margin-bottom: 2em;">
+    <!-- Year Heading in smaller font and gray -->
+    <h2 style="margin-bottom: 0.5em; font-size: 0.9em; color: gray;">{{ group.name }}</h2>
+    <!-- Lighter shaded area with a horizontal line below the year heading -->
+    <div style="background: rgba(128, 128, 128, 0.05); padding: 4px 8px; border-radius: 4px; margin-bottom: 1em;">
+      <div style="border-bottom: 1px solid rgba(128, 128, 128, 0.3);"></div>
+    </div>
+
+    <ul class="publication-list" style="list-style: none; padding: 0;">
+      {% for pub in group.items %}
+      <li class="publication-item" style="margin-bottom: 1.5em;">
+        <!-- Publication Title as a Clickable Link with Translucent Gray Underline -->
+        <h3 style="margin: 0 0 0.75em 0;">
+          {% if pub.paperurl %}
+          <a href="{{ pub.paperurl }}" target="_blank"
+            style="color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(128,128,128,0.5);">
+            <strong>{{ pub.title }}</strong>
+          </a>
+          {% else %}
+          <strong>{{ pub.title }}</strong>
+          {% endif %}
+        </h3>
+
+        <!-- Authors: Output the exact string from pub.authors,
+                 but replace "Chen, Sijia" and "Sijia Chen" with a styled version -->
+        {% if pub.authors %}
+        <p style="margin: 0; color: gray;">
+          {{ pub.authors
+          | replace: "Chen, Sijia", styled_name
+          | replace: "Sijia Chen", styled_name | raw }}
+        </p>
+        {% endif %}
+
+        <!-- Clickable Buttons for Venue and Code with smaller styling and no extra vertical spacing -->
+        <div class="publication-links" style="margin-top: 0 !important;">
+          {% if pub.paperurl %}
+          {% assign button_text = pub.abbreviate_venue | default: "Paper" %}
+          {% assign pub_category = pub.category | downcase %}
+          {% if pub_category == "journals" %}
+          {% assign button_color = "#76d7c4" %}
+          {% else %}
+          {% assign button_color = "#5dade2" %}
+          {% endif %}
+          <a href="{{ pub.confurl | default: pub.paperurl }}" target="_blank"
+            style="display: inline-block; padding: 2px 4px; font-size: 0.75em; background-color: {{ button_color }}; color: #fff; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+            {{ button_text }}
+          </a>
+          {% endif %}
+          {% if pub.code %}
+          <a href="{{ pub.code }}" target="_blank"
+            style="display: inline-block; padding: 2px 4px; font-size: 0.75em; background-color: #e6b0aa; color: #fff; text-decoration: none; border-radius: 4px;">
+            Code
+          </a>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
   {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
-
+</div>
