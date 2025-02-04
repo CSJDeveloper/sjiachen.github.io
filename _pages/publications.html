@@ -28,7 +28,8 @@ image: ""
   <section class="year-group" style="margin-bottom: 2em;">
     <!-- Year Heading in smaller font and gray -->
     <h2 style="margin-bottom: 0.5em; font-size: 0.9em; color: gray;">{{ group.name }}</h2>
-    <!-- Lighter shaded area with a horizontal line below the year heading -->
+
+    <!-- Shaded area with a horizontal line below the year heading -->
     <div style="background: rgba(128, 128, 128, 0.05); padding: 4px 8px; border-radius: 4px; margin-bottom: 1em;">
       <div style="border-bottom: 1px solid rgba(128, 128, 128, 0.3);"></div>
     </div>
@@ -62,11 +63,28 @@ image: ""
         <div class="publication-links" style="margin-top: 0 !important;">
           {% if pub.paperurl %}
           {% assign button_text = pub.abbreviate_venue | default: "Paper" %}
+          {%- comment -%}
+          Determine button color based on confRank if provided:
+          - If confRank == "A", use "#5dade2"
+          - If confRank == "B", use "#85c1e9"
+          - If confRank == "C", use "#aed6f1"
+          Otherwise, fall back to using the publication category:
+          - If category is "journals", use "#76d7c4"
+          - Else, use "#5dade2"
+          {%- endcomment -%}
+          {% if pub.confRank == "A" %}
+          {% assign button_color = "#5dade2" %}
+          {% elsif pub.confRank == "B" %}
+          {% assign button_color = "#85c1e9" %}
+          {% elsif pub.confRank == "C" %}
+          {% assign button_color = "#aed6f1" %}
+          {% else %}
           {% assign pub_category = pub.category | downcase %}
           {% if pub_category == "journals" %}
           {% assign button_color = "#76d7c4" %}
           {% else %}
           {% assign button_color = "#5dade2" %}
+          {% endif %}
           {% endif %}
           <a href="{{ pub.confurl | default: pub.paperurl }}" target="_blank"
             style="display: inline-block; padding: 2px 4px; font-size: 0.75em; background-color: {{ button_color }}; color: #fff; text-decoration: none; border-radius: 4px; margin-right: 5px;">
