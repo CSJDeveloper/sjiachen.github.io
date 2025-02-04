@@ -12,7 +12,7 @@ image: ""
 <div class="publications">
   {%- comment -%}
   Define your name variations for highlighting.
-  It’s best to define your primary name in _config.yml under site.author.name.
+  It is best to define your primary name in _config.yml under site.author.name.
   Here we assume the global name is "Chen, Sijia".
   {%- endcomment -%}
   {% assign myname = site.author.name | default: "Chen, Sijia" %}
@@ -26,7 +26,7 @@ image: ""
 
   {% for group in pubs_by_year %}
   <section class="year-group" style="margin-bottom: 2em;">
-    <!-- Year Heading in smaller font and gray -->
+    <!-- Year Heading: smaller font and gray -->
     <h2 style="margin-bottom: 0.5em; font-size: 0.9em; color: gray;">{{ group.name }}</h2>
 
     <!-- Shaded area with a horizontal line below the year heading -->
@@ -37,7 +37,7 @@ image: ""
     <ul class="publication-list" style="list-style: none; padding: 0;">
       {% for pub in group.items %}
       <li class="publication-item" style="margin-bottom: 1.5em;">
-        <!-- Publication Title as a Clickable Link with Translucent Gray Underline -->
+        <!-- Publication Title as a clickable link with translucent gray underline -->
         <h3 style="margin: 0 0 0.75em 0;">
           {% if pub.paperurl %}
           <a href="{{ pub.paperurl }}" target="_blank"
@@ -59,7 +59,7 @@ image: ""
         </p>
         {% endif %}
 
-        <!-- Clickable Buttons for Venue and Code with smaller styling and no extra vertical spacing -->
+        <!-- Clickable Buttons for Venue and Code with smaller styling and minimal vertical spacing -->
         <div class="publication-links" style="margin-top: 0 !important;">
           {% if pub.paperurl %}
           {% assign button_text = pub.abbreviate_venue | default: "Paper" %}
@@ -88,7 +88,11 @@ image: ""
           {% endif %}
           <a href="{{ pub.confurl | default: pub.paperurl }}" target="_blank"
             style="display: inline-block; padding: 2px 4px; font-size: 0.75em; background-color: {{ button_color }}; color: #fff; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+            {% if pub.confRank == "A" %}
+            <strong>{{ button_text }}</strong>
+            {% else %}
             {{ button_text }}
+            {% endif %}
           </a>
           {% endif %}
           {% if pub.code %}
