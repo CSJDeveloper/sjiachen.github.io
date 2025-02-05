@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I am currently a Ph.D. student in the [Department of Electrical and Computer Engineering](https://www.ece.utoronto.ca/) at the [University of Toronto](https://www.utoronto.ca/) supervised by Prof. [Baochun Li](https://iqua.ece.toronto.edu/bli/). Prior to starting my Ph.D., I worked as a research assistant in [Professor Chau Yuen's Lab](https://blogs.ntu.edu.sg/chau-yuen/). I received my B.Sc. and M.S. degrees in Information and Communication Engineering from [Xidian University](https://en.xidian.edu.cn/), Xi'an, China. My research focuses on distributed computing, multimodal machine learning, decision-making, and networking, as well as the intersections among these fields.
+I am currently a Ph.D. student in the [Department of Electrical and Computer Engineering](https://www.ece.utoronto.ca/) at the [University of Toronto](https://www.utoronto.ca/) supervised by Prof. [Baochun Li](https://iqua.ece.toronto.edu/bli/). Prior to starting my Ph.D., I worked as a research assistant in [Professor Chau Yuen's Lab](https://blogs.ntu.edu.sg/chau-yuen/). I received my B.Sc. and M.S. degrees in Information and Communication Engineering from [Xidian University](https://en.xidian.edu.cn/), Xi'an, China. My research focuses on distributed computing, multimodal machine learning, and decision-making, as well as on the intersections among these fields.
 
 __Research Highlights__
 - _Perception_: capturing explicit relationships for visual-language data in the world.
